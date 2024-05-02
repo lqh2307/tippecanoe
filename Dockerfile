@@ -1,19 +1,25 @@
-# Start from ubuntu
-FROM ubuntu:16.04
+FROM ubuntu:24.04
 
-# Update repos and install dependencies
-RUN apt-get update \
-  && apt-get -y upgrade \
-  && apt-get -y install build-essential libsqlite3-dev zlib1g-dev
+RUN \
+  set -ex; \
+  export DEBIAN_FRONTEND=noninteractive; \
+  apt-get -qq update; \
+  apt-get -y --no-install-recommends install \
+    build-essential \
+    libsqlite3-dev \
+    zlib1g-dev;
 
-# Create a directory and copy in all files
-RUN mkdir -p /tmp/tippecanoe-src
-WORKDIR /tmp/tippecanoe-src
-COPY . /tmp/tippecanoe-src
+WORKDIR /tippecanoe
 
-# Build tippecanoe
-RUN make \
-  && make install
+COPY . .
 
-# Run the tests
-CMD make test
+RUN \
+	make; \
+  make install; \
+  rm -rf *; \
+  mkdir -p ./data; \
+  apt-get -y --purge autoremove; \
+  apt-get clean; \
+  rm -rf /var/lib/apt/lists/*;
+
+VOLUME /tippecanoe/data
