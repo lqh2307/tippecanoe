@@ -5,16 +5,16 @@ RUN \
   export DEBIAN_FRONTEND=noninteractive; \
   apt-get -qq update; \
   apt-get -y --no-install-recommends install \
-    build-essential \
-    libsqlite3-dev \
-    zlib1g-dev;
+  build-essential \
+  libsqlite3-dev \
+  zlib1g-dev;
 
 WORKDIR /tippecanoe
 
 COPY . .
 
 RUN \
-	make; \
+  make; \
   make install; \
   rm -rf *; \
   mkdir -p ./data; \
