@@ -10,7 +10,7 @@ RUN \
   libsqlite3-dev \
   zlib1g-dev;
 
-WORKDIR /tippecanoe
+WORKDIR /data
 
 COPY . .
 
@@ -18,9 +18,8 @@ RUN \
   make; \
   make install; \
   rm -rf *; \
-  mkdir -p ./data; \
   apt-get -y --purge autoremove; \
   apt-get clean; \
   rm -rf /var/lib/apt/lists/*;
 
-VOLUME /tippecanoe/data
+VOLUME /data
