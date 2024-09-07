@@ -2,7 +2,7 @@ ARG BUILDER_IMAGE=ubuntu:24.04
 ARG TARGET_IMAGE=ubuntu:24.04
 # ARG TARGET_IMAGE=quanghuy2307/gdal:1.0.0
 
-FROM $BUILDER_IMAGE
+FROM $BUILDER_IMAGE AS builder
 
 RUN \
   set -ex; \
