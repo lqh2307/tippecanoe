@@ -1,9 +1,8 @@
 PREFIX ?= /usr/local
-MANDIR ?= $(PREFIX)/share/man/man1/
+MANDIR ?= $(PREFIX)/share/man/
 BUILDTYPE ?= Release
 SHELL = /bin/bash
 
-# inherit from env if set
 CC := $(CC)
 CXX := $(CXX)
 CFLAGS := $(CFLAGS)
@@ -21,23 +20,22 @@ endif
 
 all: tippecanoe tippecanoe-enumerate tippecanoe-decode tile-join unit tippecanoe-json-tool
 
-docs: man/tippecanoe.1
+docs: man/tippecanoe
 
 install: tippecanoe tippecanoe-enumerate tippecanoe-decode tile-join tippecanoe-json-tool
-	mkdir -p $(PREFIX)/bin
-	mkdir -p $(MANDIR)
+	mkdir -p $(PREFIX)/bin $(MANDIR)
 	cp tippecanoe $(PREFIX)/bin/tippecanoe
 	cp tippecanoe-enumerate $(PREFIX)/bin/tippecanoe-enumerate
 	cp tippecanoe-decode $(PREFIX)/bin/tippecanoe-decode
 	cp tippecanoe-json-tool $(PREFIX)/bin/tippecanoe-json-tool
 	cp tile-join $(PREFIX)/bin/tile-join
-	cp man/tippecanoe.1 $(MANDIR)/tippecanoe.1
+	cp man/tippecanoe $(MANDIR)/tippecanoe
 
 uninstall:
-	rm $(PREFIX)/bin/tippecanoe $(PREFIX)/bin/tippecanoe-enumerate $(PREFIX)/bin/tippecanoe-decode $(PREFIX)/bin/tile-join $(MANDIR)/tippecanoe.1 $(PREFIX)/bin/tippecanoe-json-tool
+	rm $(PREFIX)/bin/tippecanoe $(PREFIX)/bin/tippecanoe-enumerate $(PREFIX)/bin/tippecanoe-decode $(PREFIX)/bin/tile-join $(MANDIR)/tippecanoe $(PREFIX)/bin/tippecanoe-json-tool
 
-man/tippecanoe.1: README.md
-	md2man-roff README.md > man/tippecanoe.1
+man/tippecanoe: README.md
+	md2man-roff README.md > man/tippecanoe
 
 PG=
 
