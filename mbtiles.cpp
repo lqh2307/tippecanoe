@@ -374,25 +374,6 @@ void mbtiles_write_metadata(sqlite3 *outdb, const char *outdir, const char *fnam
 	}
 	sqlite3_free(sql);
 
-	std::string version = program + " " + VERSION;
-	sql = sqlite3_mprintf("INSERT INTO metadata (name, value) VALUES ('generator', %Q);", version.c_str());
-	if (sqlite3_exec(db, sql, NULL, NULL, &err) != SQLITE_OK) {
-		fprintf(stderr, "set version: %s\n", err);
-		if (!forcetable) {
-			exit(EXIT_FAILURE);
-		}
-	}
-	sqlite3_free(sql);
-
-	sql = sqlite3_mprintf("INSERT INTO metadata (name, value) VALUES ('generator_options', %Q);", commandline.c_str());
-	if (sqlite3_exec(db, sql, NULL, NULL, &err) != SQLITE_OK) {
-		fprintf(stderr, "set commandline: %s\n", err);
-		if (!forcetable) {
-			exit(EXIT_FAILURE);
-		}
-	}
-	sqlite3_free(sql);
-
 	if (vector) {
 		size_t elements = max_tilestats_values;
 		std::string buf;

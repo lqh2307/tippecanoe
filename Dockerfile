@@ -2,12 +2,13 @@ ARG BUILDER_IMAGE=ubuntu:24.04
 ARG TARGET_IMAGE=ubuntu:24.04
 # ARG TARGET_IMAGE=quanghuy2307/gdal:1.0.0
 
-FROM $BUILDER_IMAGE AS builder
+FROM ${BUILDER_IMAGE} AS builder
 
 RUN \
   set -ex; \
   export DEBIAN_FRONTEND=noninteractive; \
   apt-get -y update; \
+  apt-get -y upgrade; \
   apt-get -y install \
     build-essential \
     libsqlite3-dev \
@@ -23,12 +24,13 @@ ADD . .
 RUN make
 
 
-FROM $TARGET_IMAGE AS final
+FROM ${TARGET_IMAGE} AS final
 
 RUN \
   set -ex; \
   export DEBIAN_FRONTEND=noninteractive; \
   apt-get -y update; \
+  apt-get -y upgrade; \
   apt-get -y install \
     libsqlite3-0 \
     zlib1g; \
