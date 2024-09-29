@@ -2963,7 +2963,7 @@ int main(int argc, char **argv) {
 		}
 
 		case 'v':
-			fprintf(stderr, "%s", VERSION);
+			fprintf(stderr, "%s\n", VERSION);
 			exit(EXIT_SUCCESS);
 
 		case 'P':
